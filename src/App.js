@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link, Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 import Home from './pages/Home'
@@ -23,8 +23,8 @@ class App extends Component {
     return (
       <div className="app">
           <Routes>
-            <Route exact path='/' element={<Home book={this.state.book}/>} />
-            <Route  path='/search' element={<Search />} />
+            <Route exact path='/' element={<Home book={this.state.book} />} />
+            <Route  path='/search' element={<Search book={this.state.book} />} />
           </Routes>
       </div>
     )

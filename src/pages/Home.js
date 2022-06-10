@@ -7,6 +7,7 @@ class Home extends Component {
         return (
             <>
                 <div className="list-books-title">
+                        {console.log(this.props.book.authors)}
                     <h1>MyReads</h1>
                 </div>
                 <ListBooks book={this.props.book} />
