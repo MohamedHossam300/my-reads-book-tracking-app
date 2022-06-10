@@ -9,17 +9,19 @@ class Search extends Component {
     query: "",
   }
 
-
   updateQuery = (query) => {
     this.setState(() => ({
       query
     }))
-
-    BooksAPI.search(query).then((book) => {
+    try {
+      BooksAPI.search(query).then((book) => {
         this.setState(() => ({
           book
-        })) 
-    })
+        }))
+      })
+    } catch (err) {
+      throw new Error(`Unable To Search About Book. Error ${err}`)
+    }
   }
   render() {
     return (
@@ -38,20 +40,20 @@ class Search extends Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {
+            {Array.isArray(this.state.book) ?
               this.state.book.map((book) => {
                 return (
                   <li key={book.id}>
                     <Books
                       key={book.id}
                       book={book}
-                      BackgroundImage={book.imageLinks.smallThumbnail}
+                      BackgroundImage={book.imageLinks? book.imageLinks.smallThumbnail: ""}
                       bookTitle={book.title}
                       bookAuthors={book.authors}
                     />
                   </li>
                 )
-              })
+              }) : (<div>No Result Found</div>)
             }
           </ol>
         </div>
